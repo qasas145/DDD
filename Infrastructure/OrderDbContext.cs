@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 public class OrderDbContext :DbContext{
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=Qasas;User Id= SA;Password=Hamada1020;TrustServerCertificate=True");
+        optionsBuilder.UseSqlServer("Server=localhost,1433;Database=your database name ;User Id= SA;Password=your password;TrustServerCertificate=True");
         base.OnConfiguring(optionsBuilder);
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
