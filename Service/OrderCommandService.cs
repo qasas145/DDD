@@ -1,7 +1,16 @@
-public class OrderCommandService {
+public interface IOrderCommandService {
+    Task CreateOrderAsync(OrderDTO dto);
+    Task UpdateOrderAddressAsync(AddressDTO newAddress);
+    Task DeleteOrderAsync(int id);
+    Task AddItemToOrder(OrderItemDTO item);
+    Task UpdatePriceAsync(int orderId, int orderItemId, int price);
+    Task UpdateQuantityAsync(int orderId, int orderItemId, int Quantity);
+
+}
+public class OrderCommandService: IOrderCommandService {
     private readonly IRepository<Order> _repository;
     public OrderCommandService(IRepository<Order> _repository) {
-        _repository = _repository;
+        this._repository = _repository;
     }
     public async Task CreateOrderAsync(OrderDTO dto) {
         Address address = dto.GetShippingDomainEntity();
@@ -15,9 +24,6 @@ public class OrderCommandService {
         order.UpdateAddress(address);
         await _repository.SaveChanges();
 
-    }
-    public void AddOrder(Order order){
-        _repository.Add(order);
     }
     public async Task DeleteOrderAsync(int id) {
         var order = _repository.Get(id);

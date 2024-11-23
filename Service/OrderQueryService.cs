@@ -2,7 +2,12 @@ using System.Collections;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
-public class OrderQueryService {
+public interface IOrderQueryService {
+    Task<IEnumerable<OrderDTO>> GetOrdersAsync();
+    Task<OrderDTO> GetOrderByIdAsync(int id);
+    Task<IEnumerable<OrderItemDTO>> GetOrderItemsDTO(int orderId);
+}
+public class OrderQueryService :IOrderQueryService{
     public async Task<IEnumerable<OrderDTO>> GetOrdersAsync() {
         using(var connection = new SqlConnection("Server=localhost,1433;Database=Qasas;User Id= SA;Password=Hamada1020;TrustServerCertificate=True")){
             string query = "select * from dbo.Orders";
