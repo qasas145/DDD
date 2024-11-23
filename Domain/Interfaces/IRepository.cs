@@ -3,5 +3,6 @@ public interface IRepository<T>  {
     public IEnumerable<T> Search(Func<T, bool> predicate);
     public void Delete(T obj);
     public T Get(int id);
-    public void Update(T obj);
+    public void Update(int id, T obj);
+    Task SaveChanges();
 }

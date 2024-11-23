@@ -1,4 +1,5 @@
 
+
 public class OrderRepository :IRepository<Order>{
     private readonly OrderDbContext _context;
     public OrderRepository(OrderDbContext _context) {
@@ -23,9 +24,9 @@ public class OrderRepository :IRepository<Order>{
         return FindOrder(id);
     }
 
-    public void Update(Order obj)
+    public void Update(int id, Order obj)
     {
-        var dbOrder = FindOrder(obj.Id);
+        var dbOrder = FindOrder(id);
         ArgumentNullException.ThrowIfNull(dbOrder);
         _context.Entry(dbOrder).CurrentValues.SetValues(obj);
     }
@@ -33,5 +34,10 @@ public class OrderRepository :IRepository<Order>{
     public IEnumerable<Order> Search(Func<Order, bool> predicate)
     {
         return _context.Orders.Where(predicate);
+    }
+
+    public async Task SaveChanges()
+    {
+        await _context.SaveChangesAsync();
     }
 }

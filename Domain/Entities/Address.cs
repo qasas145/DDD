@@ -1,4 +1,5 @@
 
+
 public class Address : ValueObject
 {
     public string Country{get;set;}
@@ -13,5 +14,10 @@ public class Address : ValueObject
         this.Country = country;
         this.City = city;
         this.Village = village;
+    }
+
+    public static explicit operator Address(AddressDTO v)
+    {
+        throw new NotImplementedException();
     }
 }
